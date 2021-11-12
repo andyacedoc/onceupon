@@ -1,0 +1,17 @@
+{
+    "name": "amasty/andy-module",
+    "description": "First Module for Magento",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "require": {
+        "php": "~7.2.0||~7.3.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\AndyModule\\": ""
+        }
+    }
+}
