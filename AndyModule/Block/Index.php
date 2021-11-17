@@ -8,6 +8,6 @@ class Index extends Template
 {
     public function renderA(string $f)
         {
-            return 'Hi ' . $f;
+            return 'Hi, ' . $f;
         }
 }

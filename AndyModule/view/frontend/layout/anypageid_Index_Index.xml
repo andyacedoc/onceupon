@@ -2,12 +2,22 @@
 
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <css src="Amasty_AndyModule::css/main.css" rel="stylesheet" type="text/css" />
+    </head>
+
     <body>
         <referenceContainer name="content">
-            <block name="andyModule.first-block"
-                   class="Amasty\AndyModule\Block\Index"
-                   template="Amasty_AndyModule::index.phtml" />
+            <container name="andyModule.main" htmlTag="div" htmlClass="container-add-form">
+                <block name="andyModule.test-block"
+                       class="Amasty\AndyModule\Block\Index"
+                       template="Amasty_AndyModule::index.phtml"/>
+                <block name="andyModule.hello" template="Amasty_AndyModule::salute.phtml" />
+                <block name="andyModule.form" template="Amasty_AndyModule::form_a.phtml">
+                    <block name="andyModule.additional" template="Amasty_AndyModule::timer_a.phtml" />
+                </block>
+            </container>
         </referenceContainer>
     </body>
 </page>
-

@@ -1,0 +1,10 @@
+.logo img {
+    border: 7px solid #000;
+    padding: 5px;
+    border-radius: 25px;
+}
+.container-add-form div {
+    border-style: solid;
+    border-width: medium;
+    border-color: red;
+}
