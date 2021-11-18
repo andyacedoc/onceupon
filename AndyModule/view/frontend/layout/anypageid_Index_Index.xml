@@ -15,6 +15,12 @@
                        template="Amasty_AndyModule::index.phtml"/>
                 <block name="andyModule.hello" template="Amasty_AndyModule::salute.phtml" />
                 <block name="andyModule.form" template="Amasty_AndyModule::form_a.phtml">
+                    <arguments>
+                        <argument name="css_class_1" xsi:type="string">form_a_c</argument>
+                        <argument name="css_class_2" xsi:type="string">sku_c</argument>
+                        <argument name="css_class_3" xsi:type="string">qty_c</argument>
+                        <argument name="css_class_4" xsi:type="string">button_c</argument>
+                    </arguments>
                     <block name="andyModule.additional" template="Amasty_AndyModule::timer_a.phtml" />
                 </block>
             </container>

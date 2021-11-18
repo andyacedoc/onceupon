@@ -1,9 +1,14 @@
+<?php
+/** @var \Amasty\AndyModule\Block\Index $block */
+?>
+
 <div>
-    <form name="form_a" method="post" action="">
+    <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?> name="form_a" method="post" action="">
         Код товара:<br>
-        <input type="text" size="30" class="sku_c" id="skuid" name="sku" value=""><br>
-        Количетсво:<br>
-        <input type="number" size="30" class="qty_c" id="qtyid" name="qty" value=""><br>
-        <input type="submit" class="button_c" id="buttonid" name="button" value="Отправить">
+        <input type="text" class=<?=$block->hasData("css_class_2") ? $block->getData("css_class_2") : ""?> id="skuid" name="sku" value=""><br>
+        Количество:<br>
+        <input type="number" class=<?=$block->hasData("css_class_3") ? $block->getData("css_class_3") : ""?> id="qtyid" name="qty" value=""><br>
+        <?=$block->getChildHtml("andyModule.additional")?>
+        <input type="submit" class=<?=$block->hasData("css_class_4") ? $block->getData("css_class_4") : ""?> id="buttonid" name="button" value="Отправить">
     </form>
 </div>
