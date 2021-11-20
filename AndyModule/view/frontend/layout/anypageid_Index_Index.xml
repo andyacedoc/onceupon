@@ -14,7 +14,9 @@
                        class="Amasty\AndyModule\Block\Index"
                        template="Amasty_AndyModule::index.phtml"/>
                 <block name="andyModule.hello" template="Amasty_AndyModule::salute.phtml" />
-                <block name="andyModule.form" template="Amasty_AndyModule::form_a.phtml">
+                <block name="andyModule.form"
+                       class="Amasty\AndyModule\Block\Index"
+                       template="Amasty_AndyModule::form_a.phtml">
                     <arguments>
                         <argument name="css_class_1" xsi:type="string">form_a_c</argument>
                         <argument name="css_class_2" xsi:type="string">sku_c</argument>
