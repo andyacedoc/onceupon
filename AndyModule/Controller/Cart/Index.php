@@ -16,7 +16,6 @@ use Magento\Framework\App\Request\InvalidRequestException;
 class Index extends Action
             implements CsrfAwareActionInterface
 {
-    private $scopeConfig;
     /**
      * @var CheckoutSession
      */
@@ -34,7 +33,7 @@ class Index extends Action
         Context $context,
         CheckoutSession $checkoutSession,
         ProductRepositoryInterface $productRepository,
-        ProductCollectionFactory $productCollectionFactory,
+        ProductCollectionFactory $productCollectionFactory
     ) {
         $this->checkoutSession = $checkoutSession;
         $this->productRepository = $productRepository;

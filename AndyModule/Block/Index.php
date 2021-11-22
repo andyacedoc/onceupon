@@ -21,27 +21,24 @@ class Index extends Template
         parent::__construct($context, $data);
     }
 
-
     public function renderA(string $f)
     {
         return 'Hi, ' . $f;
     }
 
-    public function welcomeText()
+    public function getWelcomeText()
     {
         return $this->scopeConfig->getValue('andy_config/general/welcome_text') ?: 'NothinG.';
     }
 
     public function showInputQty()
     {
-        $showinput = '';
+        $showinput = false;
+
         if ($this->scopeConfig->isSetFlag('andy_config/general/qty_enabled')) {
-            $class_css = $this->hasData("css_class_3") ? $this->getData("css_class_3") : "";
-            $valuedefault = $this->scopeConfig->getValue('andy_config/general/qty_value');
-            $showinput = 'Количество:<br><input type="number" class='
-                    . $class_css . ' id="qtyid" name="qty" value="'
-                    . $valuedefault . '"><br>';
+            $showinput = $this->scopeConfig->getValue('andy_config/general/qty_value');
         }
+
         return $showinput;
     }
 }
