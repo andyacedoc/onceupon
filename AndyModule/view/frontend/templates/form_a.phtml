@@ -3,7 +3,7 @@
 ?>
 
 <div>
-    <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?> name="form_a" method="post" action="">
+    <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?> name="form_a" method="post" action= <?=$block->getUrl('anypage/cart')?>>
         Код товара:<br>
         <input type="text" class=<?=$block->hasData("css_class_2") ? $block->getData("css_class_2") : ""?> id="skuid" name="sku" value=""><br>
         <?=$block->showInputQty()?>
