@@ -4,8 +4,10 @@
 
 <div>
     <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?>  name="form_a" method="post" action= <?=$block->getUrl('anypage/cart')?>>
-        Код товара:<br>
-        <input type="text" class=<?=$block->hasData("css_class_2") ? $block->getData("css_class_2") : ""?> id="skuid" name="sku" value="" required="true"><br>
+        <div data-bind="scope:'anyAutocomplete'">
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+        </div>
         <?php
             if (!is_bool($block->showInputQty())) {
                 echo 'Количество:<br><input type="number" class='
@@ -17,3 +19,48 @@
         <input type="submit" class=<?=$block->hasData("css_class_4") ? $block->getData("css_class_4") : ""?> id="buttonid" name="button" value="Отправить">
     </form>
 </div>
+
+<script type="text/x-magento-init">
+   {
+       "*": {
+           "Magento_Ui/js/core/app": {
+               "components": {
+                   "anyAutocomplete": {
+                       "component": "Amasty_AndyModule/js/koAutocomplete",
+                       "template" : "Amasty_AndyModule/koAutocomplete"
+                   }
+               }
+           }
+       }
+   }
+</script>
+
+
+<!--<script type="text/x-magento-init">
+   {
+       ".search-sku": {
+           "Amasty_AndyModule/js/anywidget": {"minchars": 3}
+       }
+   }
+</script>-->
+
+<!--<script type="text/x-magento-init">
+   {
+       ".logo": {
+           "Amasty_AndyModule/js/anywidget": {"selector":".page-footer"}
+       }
+   }
+</script>-->
+
+<!--<script>
+    require(['jquery'], function ($) {
+        $('.page-footer').hide();
+    });
+</script>-->
+
+
+<!--        <div class="search-sku">
+            Код товара:<br>
+            <input type="text" class=<?/*=$block->hasData("css_class_2") ? $block->getData("css_class_2") : ""*/?> id="skuid" name="sku" value="" required="true"><br>
+            <ul class="result-list"></ul>
+        </div>-->

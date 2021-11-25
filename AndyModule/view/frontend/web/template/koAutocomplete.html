@@ -1,0 +1,21 @@
+Код товара:<br>
+<input type="text" class="sku_c" id="skuid" name="sku" value="" required="true" list="search-list" data-bind="textInput: searchText"><br>
+<div class="search-sku">
+    <datalist class="result-list" id="search-list"  data-bind="foreach: searchResult">
+        <option>
+            <span data-bind="text: sku"></span>
+            <span data-bind="text: name"></span>
+        </option>
+    </datalist>
+</div>
+
+
+<!--
+Код товара:<br>
+<input type="text" class="sku_c" id="skuid" name="sku" value="" required="true" data-bind="textInput: searchText"><br>
+<div class="search-sku">
+    <ul class="result-list" data-bind="foreach: searchResult">
+        <li data-bind="text: sku"></li>
+    </ul>
+</div>
+-->
