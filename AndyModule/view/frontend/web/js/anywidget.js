@@ -1,10 +1,10 @@
-//пример
+//пример-1
 define(['jquery', 'mage/url'], function ($, urlbulder) {
     $.widget('custom.autocomplete', {
         options: {
             minchars: null,
             availablesku: [
-                '2444',
+                '2444-333',
                 '1234',
                 '2445',
                 '2447'
@@ -13,7 +13,8 @@ define(['jquery', 'mage/url'], function ($, urlbulder) {
             searchurl: urlbulder.build('search/ajax/suggest')
         },
         _create: function () {
-            $(this.element).find('#skuid').on('keyup', this.procAutocomplete.bind(this));
+            //$(this.element).find('#skuid').on('keyup', this.procAutocomplete.bind(this));
+            this.procAutocomplete(); //для миксина
         },
         procAutocomplete: function(event) {
             var querytext = $(event.target).val();
