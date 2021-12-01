@@ -3,16 +3,16 @@
 ?>
 
 <div>
-    <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?>  name="form_a" method="post" action= <?=$block->getUrl('anypage/cart')?>>
+    <form class=<?=$block->hasData("css_class_1") ? $block->getData("css_class_1") : ""?>  name="form_a" method="post" action= <?=$block->getUrl($block->getFormAction())?>>
         <div data-bind="scope:'anyAutocomplete'">
             <!-- ko template: getTemplate() -->
             <!-- /ko -->
         </div>
         <?php
-            if (!is_bool($block->showInputQty())) {
-                echo 'Количество:<br><input type="number" class='
+            if ($block->isShowInputQty()) {
+                echo '<label for="qtyid">Количество:</label><input type="number" class='
                     . ($block->hasData("css_class_3") ? $block->getData("css_class_3") : "") . ' id="qtyid" name="qty" value="'
-                    . $block->showInputQty() . '" required="true" min="1"><br>';
+                    . $block->getShowInputQty() . '" required="true" min="1"><br>';
             }
         ?>
         <?=$block->getChildHtml("andyModule.additional")?>

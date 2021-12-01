@@ -4,25 +4,51 @@ namespace Amasty\AndyModule\Block;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\Event\ManagerInterface;
+//
+use Amasty\AndyModule\Api\Data\AnyInterface;
 
 class Index extends Template
 {
+    const FORM_ACTION = 'anypage/cart';
+
     /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
 
+    /**
+     * @var ManagerInterface
+     */
+    private $managerInterface;
+
+    /**
+     * @var AnyInterface
+     */
+    private $anyInterface;
+
     public function __construct(
         Template\Context $context,
         ScopeConfigInterface $scopeConfig,
+        ManagerInterface $managerInterface,
+        AnyInterface $anyInterface,
         array $data = []
     ) {
         $this->scopeConfig = $scopeConfig;
+        $this->managerInterface = $managerInterface;
+        $this->anyInterface = $anyInterface;
         parent::__construct($context, $data);
     }
 
     public function renderA(string $f)
     {
+//        $this->managerInterface->dispatch(
+//            'amasty_andymodule_check_name',
+//            ['name_check' => $f]
+//        );
+
+//        $f = $this->anyInterface->getName();
+
         return 'Hi, ' . $f;
     }
 
@@ -31,14 +57,26 @@ class Index extends Template
         return $this->scopeConfig->getValue('andy_config/general/welcome_text') ?: 'NothinG.';
     }
 
-    public function showInputQty()
+    public function isShowInputQty()
     {
-        $showinput = false;
+        $isInput = false;
 
         if ($this->scopeConfig->isSetFlag('andy_config/general/qty_enabled')) {
-            $showinput = $this->scopeConfig->getValue('andy_config/general/qty_value');
+            $isInput = true;
         }
 
-        return $showinput;
+        return $isInput;
+    }
+
+    public function getShowInputQty()
+    {
+            $inputQty = $this->scopeConfig->getValue('andy_config/general/qty_value');
+
+        return $inputQty;
+    }
+
+    public function getFormAction()
+    {
+        return self::FORM_ACTION;
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_andymodule_check_sku">
+        <observer name="checkIsSku" instance="Amasty\AndyModuleSecond\Observer\CheckSkuObserver"/>
+    </event>
+
+    <!--    <event name="amasty_andymodule_check_name">
+        <observer name="checkIsName" instance="Amasty\AndyModuleSecond\Observer\CheckNameObserver"/>
+    </event>-->
+</config>

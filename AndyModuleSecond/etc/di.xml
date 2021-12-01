@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\AndyModule\Controller\Index\Index" type="Amasty\AndyModuleSecond\Controller\RedirectToSecondModule\Index"/>
+
+<!--    <preference for="Amasty\AndyModule\Api\Data\AnyInterface" type="Amasty\AndyModuleSecond\Model\SecondProvider"/>-->
+<!--    <preference for="Amasty\AndyModule\Block\Index" type="Amasty\AndyModuleSecond\Block\Index"/>-->
+</config>

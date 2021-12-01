@@ -5,11 +5,16 @@ define(['jquery'], function ($) {
             $('.page-footer').hide();
 
             if (querytext.length >= 5) {
-                var filterscu = this.availablesku.filter(function (item) {
-                    return item.sku.indexOf(querytext) != -1;
-                })
-                this.searchResult(filterscu);
-                //console.log(querytext);
+                $.ajax({
+                    method: 'GET',
+                    url: this.searchurl,
+                    data: {q:querytext},
+                    datatype: 'json'
+                }).success(
+                    function(data){
+                        this.searchResult(data);
+                        //console.log(data)
+                    }.bind(this));
             } else {
                 this.searchResult([]);
             }

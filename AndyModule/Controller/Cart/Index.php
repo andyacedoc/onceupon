@@ -8,6 +8,7 @@ use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Event\ManagerInterface;
 //
 use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\RequestInterface;
@@ -17,27 +18,36 @@ class Index extends Action
             implements CsrfAwareActionInterface
 {
     /**
-     * @var CheckoutSession
-     */
-    private $checkoutSession;
-    /**
      * @var ProductRepositoryInterface
      */
     private $productRepository;
+
     /**
      * @var ProductCollectionFactory
      */
     private $productCollectionFactory;
 
+    /**
+     * @var CheckoutSession
+     */
+    private $checkoutSession;
+
+    /**
+     * @var ManagerInterface
+     */
+    private $managerInterface;
+
     public function __construct(
         Context $context,
-        CheckoutSession $checkoutSession,
         ProductRepositoryInterface $productRepository,
-        ProductCollectionFactory $productCollectionFactory
+        ProductCollectionFactory $productCollectionFactory,
+        CheckoutSession $checkoutSession,
+        ManagerInterface $managerInterface
     ) {
-        $this->checkoutSession = $checkoutSession;
         $this->productRepository = $productRepository;
         $this->productCollectionFactory = $productCollectionFactory;
+        $this->checkoutSession = $checkoutSession;
+        $this->managerInterface = $managerInterface;
         parent::__construct($context);
     }
 
@@ -60,10 +70,8 @@ class Index extends Action
 
         if (count($collection->getData()) != 0) {
             $product = $this->productRepository->get($post['sku']);
-            $productdata = $product->getData();
-
-            if (($productdata['type_id'] === 'simple')
-                && ($productdata['quantity_and_stock_status']['qty'] >= $post['qty'])) {
+            if (($product->getTypeId() === 'simple')
+                && ($product->getQty() >= $post['qty'])) {
                     $qoute = $this->checkoutSession->getQuote();
 
                     if(!$qoute->getId()) {
@@ -71,6 +79,12 @@ class Index extends Action
                     }
                     $qoute->addProduct($product,$post['qty']);
                     $qoute->save();
+
+                    $this->managerInterface->dispatch(
+                'amasty_andymodule_check_sku',
+                        ['sku_check' => $post['sku']]
+                    );
+
                     $messagecart = 'Товар добавлен в корзину.';
             } else {
                 $messagecart = 'Товар не "simple" или его количества недостаточно.';

@@ -27,10 +27,14 @@ class Index extends Action
 
     public function execute()
     {
+        $querytext = $this->getRequest()->getParam('q');
         $response_post = [];
         $n = 0;
         $collection = $this->productCollectionFactory->create();
+        $collection->addAttributeToFilter('type_id', 'simple');
+        $collection->addAttributeToFilter('sku', ['regexp' => ($querytext)]);
         $collection->addAttributeToSelect('name');
+        $collection->setPageSize(15);
 
         foreach ($collection as $product) {
             $response_post[$n]['sku'] = $product->getSku();
