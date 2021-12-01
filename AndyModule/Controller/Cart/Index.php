@@ -71,7 +71,7 @@ class Index extends Action
         if (count($collection->getData()) != 0) {
             $product = $this->productRepository->get($post['sku']);
             if (($product->getTypeId() === 'simple')
-                && ($product->getQty() >= $post['qty'])) {
+                && ($product->getQuantityAndStockStatus()['qty'] >= $post['qty'])) {
                     $qoute = $this->checkoutSession->getQuote();
 
                     if(!$qoute->getId()) {
