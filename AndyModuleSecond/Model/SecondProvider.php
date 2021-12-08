@@ -8,6 +8,6 @@ class SecondProvider implements AnyInterface
 {
     public function getName(): string
     {
-        return 'This is Second Interface from another module';
+        return 'This is SecondProvider from Second module.';
     }
 }

@@ -39,12 +39,16 @@ class CheckSkuObserver implements ObserverInterface
     public function execute(Observer $observer)
     {
         $sku = strtolower($observer->getData('sku_check'));
-        $promo_sku = strtolower(trim($this->scopeConfig->getValue('andy_second_config/general_second/promo_sku')));
-        $for_sku = explode(',', strtolower($this->scopeConfig->getValue('andy_second_config/general_second/for_sku')));
+        $promo_sku = trim($this->scopeConfig->getValue('andy_second_config/general_second/promo_sku'));
+        $for_sku = explode(',',
+                str_replace(' ', '',
+                strtolower(
+                    $this->scopeConfig->getValue('andy_second_config/general_second/for_sku'
+                ))));
 
-        if (in_array($sku, str_replace(' ', '', $for_sku))) {
-            $product = $this->productRepository->get($promo_sku);
-            $this->checkoutSession->getQuote()->addProduct($product,1)->save();
+        if (in_array($sku, $for_sku)) {
+                $product = $this->productRepository->get($promo_sku);
+                $this->checkoutSession->getQuote()->addProduct($product,1)->save();
         }
     }
 }

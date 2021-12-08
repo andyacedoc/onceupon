@@ -1,0 +1,19 @@
+<!--@subject Amasty AndyModule Black List Product's Quantity @-->
+<!--@vars
+{
+"var blackList":"Black List",
+"var sku":"Sku Product",
+"var qty":"Quantity"
+}
+@-->
+
+{{template config_path="design/email/header_template"}}
+<p>{{trans "Заказ товара %sku ограничен количеством %qty единиц(ы)." sku=$sku qty=$qty}}</p>
+
+{{layout
+    handle="amasty_andymodule_email"
+    blackList=$blackList
+}}
+
+<p>Sku: {{var blackList.sku}} Qty: {{var blackList.qty}}</p>
+{{template config_path="design/email/footer_template"}}

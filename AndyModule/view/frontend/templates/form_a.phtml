@@ -8,13 +8,11 @@
             <!-- ko template: getTemplate() -->
             <!-- /ko -->
         </div>
-        <?php
-            if ($block->isShowInputQty()) {
-                echo '<label for="qtyid">Количество:</label><input type="number" class='
-                    . ($block->hasData("css_class_3") ? $block->getData("css_class_3") : "") . ' id="qtyid" name="qty" value="'
-                    . $block->getShowInputQty() . '" required="true" min="1"><br>';
-            }
-        ?>
+        <?php if ($block->isShowInputQty()): ?>
+            <label for="qtyid">Количество:</label>
+            <input type="number" class=<?= ($block->hasData("css_class_3") ? $block->getData("css_class_3") : "") ?>
+                    id="qtyid" name="qty" value="<?= $block->getShowInputQty() ?>" required="true" min="1"><br>
+        <?php endif; ?>
         <?=$block->getChildHtml("andyModule.additional")?>
         <input type="submit" class=<?=$block->hasData("css_class_4") ? $block->getData("css_class_4") : ""?> id="buttonid" name="button" value="Отправить">
     </form>

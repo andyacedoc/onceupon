@@ -8,6 +8,6 @@ class AnyProvider implements AnyInterface
 {
     public function getName(): string
     {
-        return 'This is INTERFACE.';
+        return 'This is AnyProvider from First module.';
     }
 }

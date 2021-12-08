@@ -25,13 +25,25 @@ class BlacklistRepository
         $this->blacklistResource = $blacklistResource;
     }
 
-    public function get($sku)
+    public function get(string $sku)
     {
         $item = $this->blacklistFactory->create();
         $this->blacklistResource->load(
             $item,
             $sku,
             'sku'
+        );
+
+        return $item;
+    }
+
+    public function getId(int $black_id)
+    {
+        $item = $this->blacklistFactory->create();
+        $this->blacklistResource->load(
+            $item,
+            $black_id,
+            'black_id'
         );
 
         return $item;

@@ -13,9 +13,6 @@ class Index extends Action
      * @var ProductCollectionFactory
      */
     private $productCollectionFactory;
-    /**
-     * @var \Magento\Framework\Controller\Result\Json $resultJson
-     */
 
     public function __construct(
         Context $context,
@@ -27,23 +24,23 @@ class Index extends Action
 
     public function execute()
     {
-        $querytext = $this->getRequest()->getParam('q');
-        $response_post = [];
-        $n = 0;
+        $queryText = $this->getRequest()->getParam('q');
+        $responsePost = [];
         $collection = $this->productCollectionFactory->create();
         $collection->addAttributeToFilter('type_id', 'simple');
-        $collection->addAttributeToFilter('sku', ['regexp' => ($querytext)]);
+        $collection->addAttributeToFilter('sku', ['like' => "%$queryText%"]);
         $collection->addAttributeToSelect('name');
         $collection->setPageSize(15);
 
         foreach ($collection as $product) {
-            $response_post[$n]['sku'] = $product->getSku();
-            $response_post[$n]['name'] = $product->getName();
-            $n++;
+            $responsePost[] = [
+                'sku' => $product->getSku(),
+                'name' => $product->getName()
+            ];
         }
 
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $resultJson->setData($response_post);
+        $resultJson->setData($responsePost);
 
         return $resultJson;
     }

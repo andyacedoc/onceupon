@@ -33,6 +33,21 @@
                         <field id="qty_enabled">1</field>
                     </depends>
                 </field>
+                <field id="to_email_value" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>To E-mail</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="email_template" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Template Name</label>
+                </field>
+                <field id="schedule_job" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Schedule Job</label>
+                </field>
+
+                <!--                <field id="email_template" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                                    <label>Email Template</label>
+                                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                                </field>-->
             </group>
         </section>
     </system>

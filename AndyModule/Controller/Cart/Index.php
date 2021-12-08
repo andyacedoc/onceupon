@@ -3,14 +3,12 @@
 namespace Amasty\AndyModule\Controller\Cart;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Event\ManagerInterface;
 //
-use Amasty\AndyModule\Model\ResourceModel\Blacklist\CollectionFactory as BlacklistCollectionFactory;
 use Amasty\AndyModule\Model\BlacklistRepository;
 //
 use Magento\Framework\App\CsrfAwareActionInterface;
@@ -26,11 +24,6 @@ class Index extends Action
     private $productRepository;
 
     /**
-     * @var ProductCollectionFactory
-     */
-    private $productCollectionFactory;
-
-    /**
      * @var CheckoutSession
      */
     private $checkoutSession;
@@ -41,11 +34,6 @@ class Index extends Action
     private $managerInterface;
 
     /**
-     * @var BlacklistCollectionFactory
-     */
-    private $blacklistCollectionFactory;
-
-    /**
      * @var BlacklistRepository
      */
     private $blacklistRepository;
@@ -53,17 +41,13 @@ class Index extends Action
     public function __construct(
         Context $context,
         ProductRepositoryInterface $productRepository,
-        ProductCollectionFactory $productCollectionFactory,
         CheckoutSession $checkoutSession,
         ManagerInterface $managerInterface,
-        BlacklistCollectionFactory $blacklistCollectionFactory,
         BlacklistRepository $blacklistRepository
     ) {
         $this->productRepository = $productRepository;
-        $this->productCollectionFactory = $productCollectionFactory;
         $this->checkoutSession = $checkoutSession;
         $this->managerInterface = $managerInterface;
-        $this->blacklistCollectionFactory = $blacklistCollectionFactory;
         $this->blacklistRepository = $blacklistRepository;
         parent::__construct($context);
     }
@@ -131,30 +115,33 @@ class Index extends Action
 
                     $qty = $this->getQty($postSku, $postQty, $qoute);
 
-                    If ($qty != 0) {
-                        $qoute->addProduct($product,$qty);
-                        $qoute->save();
-
-                        $this->managerInterface->dispatch(
-                    'amasty_andymodule_check_sku',
-                            ['sku_check' => $postSku]
-                        );
+                    try {
+                        If ($qty != 0) {
+                            $qoute->addProduct($product,$qty);
+                            $qoute->save();
+                            $this->managerInterface->dispatch(
+                                'amasty_andymodule_check_sku',
+                                ['sku_check' => $postSku]
+                            );
+                        }
+                    } catch (\Exception $e) {
+                        $this->messageManager->addNoticeMessage('Promo-товар не добавлен в корзину.');
                     }
 
                     if ($qty < $postQty) {
-                        $this->messageManager->addNoticeMessage('Действует ограничение.
-                                        Товар добавлен в корзину в количестве ' . $qty . ' единиц(ы),
-                                        вместо заявленных ' . $postQty . ' единиц(ы).');
+                        $this->messageManager->addNoticeMessage("Действует ограничение.
+                                        Товар $postSku добавлен в корзину в количестве $qty единиц(ы),
+                                        вместо заявленных $postQty единиц(ы).");
                     } else {
-                        $this->messageManager->addSuccessMessage('Товар добавлен в корзину.');
+                        $this->messageManager->addSuccessMessage("Товар $postSku добавлен в корзину.");
                     }
 
             } else {
-                $this->messageManager->addNoticeMessage('Товар не "simple" или его количества недостаточно.');
+                $this->messageManager->addNoticeMessage("Товар $postSku не 'simple' или его количества недостаточно.");
             }
 
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage('Товара нет вообще (или другая ошибка).');
+            $this->messageManager->addErrorMessage("Товара $postSku нет вообще.");
         }
 
         $redirectResult = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

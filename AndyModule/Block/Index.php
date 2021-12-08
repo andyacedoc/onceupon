@@ -70,9 +70,7 @@ class Index extends Template
 
     public function getShowInputQty()
     {
-            $inputQty = $this->scopeConfig->getValue('andy_config/general/qty_value');
-
-        return $inputQty;
+        return $this->scopeConfig->getValue('andy_config/general/qty_value');
     }
 
     public function getFormAction()
