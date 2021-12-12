@@ -13,7 +13,7 @@ class Index extends Action
     /**
      * @var CustomerSession
      */
-    private $customerSession;
+    public $customerSession;
 
     /**
      * @var ScopeConfigInterface

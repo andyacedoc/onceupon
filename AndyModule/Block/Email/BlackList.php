@@ -11,8 +11,8 @@ class BlackList extends Template
         parent::__construct($context, $data);
     }
 
-    public function getBlackList()
+    public function getField()
     {
-        return $this->getData('black_list'); //почему здесь не подхватывает blackList=$blackList из blacklist_template.html
-    }                                            //модель почему-то формируется с именем black_list
-}                                                //хотя в Amasty\AndyModule\Controller\Email\Index.php модель пишется в $blackList
+        return $this->getBlackList();
+    }
+}
